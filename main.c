@@ -73,44 +73,37 @@ main()
 void write()
 {
 
-	int i,n=0;
+	int i,n=0,f;
 	FILE *fp=fopen("stu.txt","a+");
     int l=read();
+    f=l;
     if(fp==NULL)
     {
         printf("can't create file");
         getch();
         exit(1);
     }
-    printf("\n\tThe Last ID is : %d ,so Please add a Number bigger Than This.\n",l);
-    jump:printf("\n\tHow Many Records You Want to Enter:=");
+
+    printf("\n\tHow Many Records You Want to Enter:=");
     scanf("%d",&n);
 
     for(i=0;i<n;i++)
     {
-
-        printf("\n\tEnter Item ID := ");
-        scanf("%d",&st.id);
-         if(st.id>l)
-         {
+        printf("\n\tPlease Enter Item for ID : %d ",f+1);
+        st.id=++f;
         fflush(stdin);
         printf("\n\tEnter Item Name := ");
         gets(st.item);
-        printf("\n\tEnter the Quantity:=");
+        printf("\n\tEnter the Quantity := ");
         scanf("%d",&st.qty);
-        printf("\n\tEnter the Price:=");
+        printf("\n\tEnter the Price := ");
         scanf("%d",&st.price);
+        printf("\n\tItem %s Added!!",st.item);
         printf("\n\tx**************************x\n");
         fwrite(&st,sizeof(stock),1,fp);
-         }
 
-        else
-       {
-        printf("\tPlease a number Greater than %d \n",l);
-        goto jump;
-       }
-    }
-	fclose(fp);
+         }
+    fclose(fp);
 }
 int read()
 {
@@ -138,7 +131,7 @@ int read()
     puts("\t\t\t\t\t+============================================+");
 	for(i=0;i<len;i++)
 	{
-		printf("\t\t\t\t\t|%d   %-8s %16.2d\t%12.2d |\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
+		printf("\t\t\t\t\t|%d   %-8s %16d\t%12d |\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
 	}
 	puts("\t\t\t\t\t---------------------------------------------+");
     printf("\n\n");
@@ -199,8 +192,10 @@ void update()
 
             	default:printf("\n\tOption not Available\n");
         	}
+        	printf("\n\tItem %s Updated!!\n",rst[i].item);
         	break;
         }
+
 	}
 
     fopen("stu.txt","w");
@@ -259,7 +254,7 @@ void billing()
         }
         else if(st.qty==0 && st.qty<q)
         {
-           printf("\nStock is empty,Please Stock Up\n");
+           printf("\nStock of %s empty,Please Stock Up\n",b[j].itemm);
         }
         else
         {
@@ -303,7 +298,7 @@ void billing()
 void leave()
 {
     char ch;
-printf("\n\t\t\t\t\t\tAre You Sure [y/n]?\n");
+printf("\n\t\t\t\t\t\tAre You Sure [y/n]?");
 fflush(stdin);
 scanf("%c",&ch);
 if(ch=='y'||ch=='Y')
