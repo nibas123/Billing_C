@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1620906436 source:d:\c projects\billing_system\main.c
+	<stdio.h>
+	<stdlib.h>
+	<process.h>
+	<string.h>
+
+1621775002 source:c:\users\admin\downloads\billing_system\billing_system\main.c
+	<stdio.h>
+	<stdlib.h>
+	<process.h>
+	<string.h>
+
