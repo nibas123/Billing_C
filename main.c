@@ -5,6 +5,7 @@
 int read();
 void write();
 void update();
+void billing();
 void leave();
 typedef struct
 {
@@ -89,7 +90,7 @@ void write()
 
     for(i=0;i<n;i++)
     {
-        printf("\n\tPlease Enter Item for ID : %d ",f+1);
+        printf("\n\tPlease Enter Item for ID : %d \n",f+1);
         st.id=++f;
         fflush(stdin);
         printf("\n\tEnter Item Name := ");
@@ -98,8 +99,8 @@ void write()
         scanf("%d",&st.qty);
         printf("\n\tEnter the Price := ");
         scanf("%d",&st.price);
-        printf("\n\tItem %s Added!!",st.item);
-        printf("\n\tx**************************x\n");
+        printf("\n\t**********Item %s Added Successfully!!**********",st.item);
+        printf("\n\tx#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-x\n");
         fwrite(&st,sizeof(stock),1,fp);
 
          }
@@ -126,17 +127,18 @@ int read()
 
 	fread(rst,sizeof(stock),len,fp);
 
-    puts("\n\t\t\t\t\t+============================================+");
-    printf("\t\t\t\t\t|%s   %-10s%15s%15s\n", "ID","Item", "Qty", "Price |");
-    puts("\t\t\t\t\t+============================================+");
+    puts("\n\t\t\t\t\t+=======================================+");
+    printf("\t\t\t\t\t|%s\t%s\t\t%s\t%s\t\n", "ID","ITEM", "QTY", "PRICE\t|");
+    puts("\t\t\t\t\t+=======================================+");
 	for(i=0;i<len;i++)
 	{
-		printf("\t\t\t\t\t|%d   %-8s %16d\t%12d |\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
+		printf("\t\t\t\t\t|%d\t%s\t\t%d\t %d\t|\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
 	}
-	puts("\t\t\t\t\t---------------------------------------------+");
+	puts("\t\t\t\t\t+---------------------------------------+");
     printf("\n\n");
 	fclose(fp);
 //	free(rst);
+    //printf("\t\t\t\t\t|%d   %-8s %16d\t%12d |\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
 	return(len);
 }
 void update()
@@ -160,9 +162,9 @@ void update()
 	    if(rst[i].id==n)
         {
             puts("\n+============================================+");
-            printf("|%s   %-10s%15s%15s\n", "ID","Item", "Qty", "Price |");
+            printf("|%s\t%s\t\t%s\t%s\t\n", "ID","Item", "Qty", "Price |");
             puts("+============================================+");
-        	printf("|%d   %-8s %16.2d\t%12.2d |\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
+        	printf("|\t\t\t\t\t|%d\t%s\t\t%d\t %d\t|\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
         	puts("---------------------------------------------+");
             printf("\n\tPress <1> :Change Name");
         	printf("\n\tPress <2> :Change Quantity");
@@ -192,7 +194,7 @@ void update()
 
             	default:printf("\n\tOption not Available\n");
         	}
-        	printf("\n\tItem %s Updated!!\n",rst[i].item);
+        	printf("\n\t**********Item %s Updated successfully!!**********\n",rst[i].item);
         	break;
         }
 
@@ -235,7 +237,6 @@ void billing()
         		st=rst[i];
         		c=i;
         		break;
-
   			}
 		}
         printf("\nQuantity of %s out of %d  : ",st.item,st.qty);
@@ -250,25 +251,25 @@ void billing()
             rst[c].qty=rst[c].qty-q;
             b[j].pricee=st.price;
 
-           printf("\nYou Brought %d %s/s of Rs.%d each\n",b[j].qtyy,b[j].itemm,b[j].pricee);
+           printf("\n**********You Brought %d %s/s of Rs.%d each**********\n",b[j].qtyy,b[j].itemm,b[j].pricee);
         }
         else if(st.qty==0 && st.qty<q)
         {
-           printf("\nStock of %s empty,Please Stock Up\n",b[j].itemm);
+           printf("\n**********Stock of %s empty,Please Stock Up**********\n",b[j].itemm);
         }
         else
         {
-            printf("\nenter a value between 0 and %d in the stock\n",st.qty);
+            printf("\n**********enter a value between 0 and %d in the stock**********\n",st.qty);
         }
         if(st.qty<=2 && st.qty !=0)
         {
-        	printf("\nStock is low,Don't forgot To Stock Up\n");
+        	printf("\n**********Stock is low,Don't forgot To Stock Up**********\n");
         }
         j++;
         printf("\nAdd More Items [y/n]?");
         fflush(stdin);
         scanf("%c",&ch);
-        puts("xoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxo");
+        puts("x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o");
     }while(ch=='y'||ch=='Y');
     //printf("%d",i);
 
