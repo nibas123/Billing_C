@@ -90,7 +90,7 @@ void write()
 
     for(i=0;i<n;i++)
     {
-        printf("\n\tPlease Enter Item for ID : %d \n",f+1);
+        //printf("\n\tPlease Enter Item for ID : %d \n",f+1);
         st.id=++f;
         fflush(stdin);
         printf("\n\tEnter Item Name := ");
@@ -105,6 +105,7 @@ void write()
 
          }
     fclose(fp);
+
 }
 int read()
 {
@@ -154,39 +155,46 @@ void update()
 
 	fclose(fp);
 
-    printf("Product ID of the stock you want to chanage: ");
+    printf("Product ID of the stock you want to update: ");
     scanf("%d",&n);
 
 	for(i=0;i<len;i++)
 	{
 	    if(rst[i].id==n)
         {
-            puts("\n+============================================+");
-            printf("|%s\t%s\t\t%s\t%s\t\n", "ID","Item", "Qty", "Price |");
-            puts("+============================================+");
-        	printf("|\t\t\t\t\t|%d\t%s\t\t%d\t %d\t|\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
-        	puts("---------------------------------------------+");
-            printf("\n\tPress <1> :Change Name");
-        	printf("\n\tPress <2> :Change Quantity");
-        	printf("\n\tPress <3> :Change Price");
-        	printf("\n\tPress <4> :Exit");
-        	printf("\n\tEnter Your Choice:- ");
+            puts("\n\t\t\t\t\t+============================================+");
+            printf("\t\t\t\t\t|%s\t%s\t\t%s\t\t%s\t\n", "ID","Item", "Qty", "Price|");
+            puts("\t\t\t\t\t+============================================+");
+        	printf("\t\t\t\t\t|%d\t%s\t\t%d\t\t%d\t|\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
+        	puts("\t\t\t\t\t+--------------------------------------------+");
+            printf("\nPress <1> :Change Name");
+        	printf("\nPress <2> :Change Quantity");
+        	printf("\nPress <3> :Change Price");
+        	printf("\nPress <4> :Exit");
+        	printf("\nEnter Your Choice:- ");
         	scanf("%d",&q);
+        	printf("\n");
         	switch(q)
         	{
             	case 1:
        				fflush(stdin);
-					printf("Enter the New Name: ");
+					printf("\n****** Current Name:%s ******\n",rst[i].item);
+					printf("\nEnter the New Name: ");
            			gets(rst[i].item);
+           			printf("\n****** New Name:%s ******\n",rst[i].item);
             		break;
             	case 2:
+            	    printf("****** Current Quantity :%d ******\n",rst[i].qty);
                 	printf("\nEnter the new quantity:=");
                 	scanf("%d",&rst[i].qty);
+                	printf("\n****** New Quantity :%d ******\n",rst[i].qty);
                 	break;
 
 				case 3:
-                	printf("\nEnter the  new price:=");
+				    printf("****** Current Price:Rs.%d ******\n",rst[i].price);
+                	printf("\nEnter the new price:=Rs.");
                 	scanf("%d",&rst[i].price);
+                	printf("\n****** New Price:Rs.%d ******\n",rst[i].price);
                 	break;
 
             	case 4:
@@ -194,7 +202,7 @@ void update()
 
             	default:printf("\n\tOption not Available\n");
         	}
-        	printf("\n\t**********Item %s Updated successfully!!**********\n",rst[i].item);
+        	printf("\n\t\t\t********** Item %s Updated successfully!! **********\n",rst[i].item);
         	break;
         }
 
@@ -251,19 +259,19 @@ void billing()
             rst[c].qty=rst[c].qty-q;
             b[j].pricee=st.price;
 
-           printf("\n**********You Brought %d %s/s of Rs.%d each**********\n",b[j].qtyy,b[j].itemm,b[j].pricee);
+           printf("\n********** You Brought %d %s/s of Rs.%d each **********\n",b[j].qtyy,b[j].itemm,b[j].pricee);
         }
         else if(st.qty==0 && st.qty<q)
         {
-           printf("\n**********Stock of %s empty,Please Stock Up**********\n",b[j].itemm);
+           printf("\n********** Stock of %s empty,Please Stock Up **********\n",b[j].itemm);
         }
         else
         {
-            printf("\n**********enter a value between 0 and %d in the stock**********\n",st.qty);
+            printf("\n********** enter a value between 0 and %d in the stock **********\n",st.qty);
         }
         if(st.qty<=2 && st.qty !=0)
         {
-        	printf("\n**********Stock is low,Don't forgot To Stock Up**********\n");
+        	printf("\n********** Stock is low,Don't forgot To Stock Up **********\n");
         }
         j++;
         printf("\nAdd More Items [y/n]?");
@@ -276,18 +284,18 @@ void billing()
 	fopen("stu.txt","w");
 	fwrite(rst,sizeof(stock),len,fr);
  	fclose(fr);
-    puts("\t\t\t\t+---------------------------------------------------------------+");
+    puts("\t\t\t\t+---------------------------------------------------------------------+");
 	printf("\t\t\t\t\t\t\tUC SUPER MARKET\n");
-    puts("\t\t\t\t+===============================================================+");
-    printf("\t\t\t\t%s   %11s%15s%15s%15s\n", "No.","Item", "Qty", "Price", "Amount");
-    puts("\t\t\t\t+---------------------------------------------------------------+");
+    puts("\t\t\t\t+=====================================================================+");
+    printf("\t\t\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\n", "No.","Item", "Qty", "Price", "Amount");
+    puts("\t\t\t\t+---------------------------------------------------------------------+");
     for(i=0; i<j; i++)
     {
         amt=(b[i].qtyy*b[i].pricee);
         total=total+amt;
-        printf("\t\t\t\t%d %16s\t%8d\t%6d%14d\n",b[i].idd,b[i].itemm, b[i].qtyy,b[i].pricee, amt);
+        printf("\t\t\t\t%d\t\t%s\t\t%d\t\t%d\t\t%d\n",b[i].idd,b[i].itemm, b[i].qtyy,b[i].pricee, amt);
     }
-    puts("\t\t\t\t+----------------------------------------------------------------+");
+    puts("\t\t\t\t+----------------------------------------------------------------------+");
 
 
     printf("\t\t\t\tTotal Amount :\t\t\t\t\t\tRs.%d\n",total);
