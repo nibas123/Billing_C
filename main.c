@@ -44,6 +44,7 @@ main()
 
     while(1)
     {
+        printf("\n");
         printf("\t\t\t\t\tx=====================================x\t\t\t\t\t");
         printf("\n\t\t\t\t\t|\tPress <1>  Write Records      |");
         printf("\n\t\t\t\t\t|\tPress <2>  Read Records       |");
@@ -99,7 +100,7 @@ void write()
         scanf("%d",&st.qty);
         printf("\n\tEnter the Price := ");
         scanf("%d",&st.price);
-        printf("\n\t**********Item %s Added Successfully!!**********",st.item);
+        printf("\n\t**********Item %s Added Successfully!!**********\n",st.item);
         printf("\n\tx#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-x\n");
         fwrite(&st,sizeof(stock),1,fp);
 
@@ -155,18 +156,18 @@ void update()
 
 	fclose(fp);
 
-    printf("Product ID of the stock you want to update: ");
+    printf("\n Product ID of the stock you want to update: ");
     scanf("%d",&n);
 
 	for(i=0;i<len;i++)
 	{
 	    if(rst[i].id==n)
         {
-            puts("\n\t\t\t\t\t+============================================+");
-            printf("\t\t\t\t\t|%s\t%s\t\t%s\t\t%s\t\n", "ID","Item", "Qty", "Price|");
-            puts("\t\t\t\t\t+============================================+");
-        	printf("\t\t\t\t\t|%d\t%s\t\t%d\t\t%d\t|\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
-        	puts("\t\t\t\t\t+--------------------------------------------+");
+            puts("\n\t\t\t\t\t+========================================+");
+            printf("\t\t\t\t\t|%s\t%s\t\t%s\t%s\t\n", "ID","ITEM", "QTY", "PRICE\t|");
+            puts("\t\t\t\t\t+========================================+");
+        	printf("\t\t\t\t\t|%d\t%s\t\t%d\t %d\t|\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
+        	puts("\t\t\t\t\t+----------------------------------------+");
             printf("\nPress <1> :Change Name");
         	printf("\nPress <2> :Change Quantity");
         	printf("\nPress <3> :Change Price");
@@ -182,12 +183,14 @@ void update()
 					printf("\nEnter the New Name: ");
            			gets(rst[i].item);
            			printf("\n****** New Name:%s ******\n",rst[i].item);
+           			printf("\n\t\t\t********** Item %s Updated successfully!! **********\n",rst[i].item);
             		break;
             	case 2:
             	    printf("****** Current Quantity :%d ******\n",rst[i].qty);
                 	printf("\nEnter the new quantity:=");
                 	scanf("%d",&rst[i].qty);
                 	printf("\n****** New Quantity :%d ******\n",rst[i].qty);
+                	printf("\n\t\t\t********** Item %s Updated successfully!! **********\n",rst[i].item);
                 	break;
 
 				case 3:
@@ -195,23 +198,25 @@ void update()
                 	printf("\nEnter the new price:=Rs.");
                 	scanf("%d",&rst[i].price);
                 	printf("\n****** New Price:Rs.%d ******\n",rst[i].price);
+                	printf("\n\t\t\t********** Item %s Updated successfully!! **********\n",rst[i].item);
                 	break;
 
-            	case 4:
-					exit(1);
-
+            	case 4:break;
             	default:printf("\n\tOption not Available\n");
+            	printf("\n\t\t\t********** Item %s Not Updated,Please Try Again **********\n",rst[i].item);
+
         	}
-        	printf("\n\t\t\t********** Item %s Updated successfully!! **********\n",rst[i].item);
         	break;
         }
 
 	}
 
+
+
     fopen("stu.txt","w");
     fwrite(rst,sizeof(stock),len,fp);
     fclose(fp);
-
+    printf("\n\t\tID %d Not Found,Please Try Again \n",n);
 }
 void billing()
 {
@@ -269,7 +274,7 @@ void billing()
         {
             printf("\n********** enter a value between 0 and %d in the stock **********\n",st.qty);
         }
-        if(st.qty<=2 && st.qty !=0)
+        if(st.qty=2 || st.qty ==1)
         {
         	printf("\n********** Stock is low,Don't forgot To Stock Up **********\n");
         }
@@ -277,7 +282,7 @@ void billing()
         printf("\nAdd More Items [y/n]?");
         fflush(stdin);
         scanf("%c",&ch);
-        puts("x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o");
+        puts("x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-o-x-ox-o-x-o-x-o-x-o");
     }while(ch=='y'||ch=='Y');
     //printf("%d",i);
 
@@ -298,7 +303,7 @@ void billing()
     puts("\t\t\t\t+----------------------------------------------------------------------+");
 
 
-    printf("\t\t\t\tTotal Amount :\t\t\t\t\t\tRs.%d\n",total);
+    printf("\t\t\t\tTotal Amount :\t\t\t\t\t\tRs.%d/-\n",total);
 	puts("\t\t\t\tHappy Shopping\n");
     puts("\t\t\t\t\t\t\tVisit US Again\n");
 }
