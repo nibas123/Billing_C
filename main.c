@@ -95,7 +95,7 @@ void write()
 
     for(i=0;i<n;i++)
     {
-        printf("\n\tPlease Enter Item for ID : %d \n",f+1);
+        printf("\n\tPlease Enter Item for ID :SM%d \n",f+1);
         st.id=++f;
         fflush(stdin);
         printf("\n\tEnter Item Name := ");
@@ -134,14 +134,14 @@ int read()
 
 	fread(rst,sizeof(stock),len,fp);
 
-    puts("\n\t\t\t\t\t+================================================+");
+    puts("\n\t\t\t\t\t+===============================================+");
     printf("\t\t\t\t\t|%s\t%s\t%s\t\t%s\t%s\t\n", "No.","ID","ITEM", "QTY", "PRICE\t|");
-    puts("\t\t\t\t\t+================================================+");
+    puts("\t\t\t\t\t+===============================================+");
 	for(i=0;i<len;i++)
 	{
-		printf("\t\t\t\t\t|%d\t%d\t%s\t\t%d\t %d\t|\n",code++,rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
+		printf("\t\t\t\t\t|%d\tSM%d\t%s\t\t%d\t %d\t|\n",code++,rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
 	}
-	puts("\t\t\t\t\t+------------------------------------------------+");
+	puts("\t\t\t\t\t+-----------------------------------------------+");
     printf("\n\n");
 	fclose(fp);
 //	free(rst);
@@ -162,7 +162,7 @@ void update()
 
 	fclose(fp);
 
-    printf("\n Product ID of the stock you want to update: ");
+    printf("\n Product ID of the stock you want to update:SM");
     scanf("%d",&n);
 
 	for(i=0;i<len;i++)
@@ -172,7 +172,7 @@ void update()
             puts("\n\t\t\t\t\t+========================================+");
             printf("\t\t\t\t\t|%s\t%s\t\t%s\t%s\t\n","ID","ITEM", "QTY", "PRICE\t|");
             puts("\t\t\t\t\t+========================================+");
-        	printf("\t\t\t\t\t|%d\t%s\t\t%d\t %d\t|\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
+        	printf("\t\t\t\t\t|SM%d\t%s\t\t%d\t %d\t|\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
         	puts("\t\t\t\t\t+----------------------------------------+");
             printf("\nPress <1> :Change Name");
         	printf("\nPress <2> :Change Quantity");
@@ -222,7 +222,7 @@ void update()
     fopen("stu.txt","w");
     fwrite(rst,sizeof(stock),len,fp);
     fclose(fp);
-    printf("\n\t\tID %d Not Found,Please Try Again \n",n);
+   // printf("\n\t\tID %d Not Found,Please Try Again \n",n);
 }
 void billing()
 {
@@ -245,7 +245,7 @@ void billing()
     {
     	b=(bill *)realloc(b,sizeof(bill)*++bsize);
 
-        printf("\nProduct ID of the Item You want: ");
+        printf("\nProduct ID of the Item You want:SM");
         scanf("%d",&n);
 
         for(i=0;i<len;i++)
@@ -304,7 +304,7 @@ void billing()
     {
         amt=(b[i].qtyy*b[i].pricee);
         total=total+amt;
-        printf("\t\t\t\t%d\t\t%s\t\t%d\t\t%d\t\t%d\n",b[i].idd,b[i].itemm, b[i].qtyy,b[i].pricee, amt);
+        printf("\t\t\t\tSM%d\t\t%s\t\t%d\t\t%d\t\t%d\n",b[i].idd,b[i].itemm, b[i].qtyy,b[i].pricee, amt);
     }
     puts("\t\t\t\t+----------------------------------------------------------------------+");
 
@@ -340,7 +340,7 @@ void rem()
 	FILE *fp=fopen("stu.txt","r");
     fread(rst,sizeof(stock),len,fp);
     fclose(fp);
-    printf("\n Product ID of the stock you want to Delete: ");
+    printf("\n Product ID of the stock you want to Delete:SM");
     scanf("%d",&n);
 
             for(i=0;i<len;i++)
@@ -351,9 +351,10 @@ void rem()
                     //printf("\n\t\tID %d  Found,pos %d \n",n,pos);
                       break;
                      }
+
                }
 
-           printf("\n\t\t\t %s Deleted \n",rst[i].item);
+           printf("\n\t\t\t %s is Deleted \n",rst[i].item);
 
            for(j=pos-1;j<len-1;j++)
               {
