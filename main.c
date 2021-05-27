@@ -82,7 +82,6 @@ void write()
 	int i,n=0,f;
 	FILE *fp=fopen("stu.txt","a+");
     int l=read();
-    f=l;
     if(fp==NULL)
     {
         printf("can't create file");
@@ -95,8 +94,7 @@ void write()
 
     for(i=0;i<n;i++)
     {
-        printf("\n\tPlease Enter Item for ID :SM%d \n",f+1);
-        st.id=++f;
+        st.id=++l;
         fflush(stdin);
         printf("\n\tEnter Item Name := ");
         gets(st.item);
@@ -156,8 +154,6 @@ void update()
 
 	FILE *fp=fopen("stu.txt","r");
 
-	//rst=(stock *)malloc(len*sizeof(stock));
-
 	fread(rst,sizeof(stock),len,fp);
 
 	fclose(fp);
@@ -212,9 +208,9 @@ void update()
             	printf("\n\t\t\t********** Item %s Not Updated,Please Try Again **********\n",rst[i].item);
 
         	}
+
         	break;
         }
-
 	}
 
 
@@ -222,7 +218,7 @@ void update()
     fopen("stu.txt","w");
     fwrite(rst,sizeof(stock),len,fp);
     fclose(fp);
-   // printf("\n\t\tID %d Not Found,Please Try Again \n",n);
+
 }
 void billing()
 {
@@ -348,7 +344,6 @@ void rem()
                    pos++;
                    if(rst[i].id==n)
                      {
-                    //printf("\n\t\tID %d  Found,pos %d \n",n,pos);
                       break;
                      }
 
