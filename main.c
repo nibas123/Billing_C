@@ -47,9 +47,9 @@ main()
     {
         printf("\n");
         printf("\t\t\t\t\tx=====================================x\t\t\t\t\t");
-        printf("\n\t\t\t\t\t|\tPress <1>  Write Records      |");
-        printf("\n\t\t\t\t\t|\tPress <2>  Read Records       |");
-        printf("\n\t\t\t\t\t|\tPress <3>  Update Records     |");
+        printf("\n\t\t\t\t\t|\tPress <1>  Add New Stock      |");
+        printf("\n\t\t\t\t\t|\tPress <2>  View Stock         |");
+        printf("\n\t\t\t\t\t|\tPress <3>  Update Record     |");
         printf("\n\t\t\t\t\t|\tPress <4>  Generate a Bill    |");
         printf("\n\t\t\t\t\t|\tPress <5>  Delete Record      |");
         printf("\n\t\t\t\t\t|\tPress <6>  Exit               |");
@@ -79,7 +79,7 @@ main()
 void write()
 {
 
-	int i,n=0,f;
+	int i,n=0;
 	FILE *fp=fopen("stu.txt","a+");
     int l=read();
     if(fp==NULL)
@@ -137,7 +137,7 @@ int read()
     puts("\t\t\t\t\t+===============================================+");
 	for(i=0;i<len;i++)
 	{
-		printf("\t\t\t\t\t|%d\tSM%d\t%s\t\t%d\t %d\t|\n",code++,rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
+		printf("\t\t\t\t\t|%d\tSM%d\t%s\t\t%d\t %d\t|\n",code++,rst[i].id,strupr(rst[i].item),rst[i].qty,rst[i].price);
 	}
 	puts("\t\t\t\t\t+-----------------------------------------------+");
     printf("\n\n");
@@ -154,6 +154,8 @@ void update()
 
 	FILE *fp=fopen("stu.txt","r");
 
+	//rst=(stock *)malloc(len*sizeof(stock));
+
 	fread(rst,sizeof(stock),len,fp);
 
 	fclose(fp);
@@ -165,11 +167,11 @@ void update()
 	{
 	    if(rst[i].id==n)
         {
-            puts("\n\t\t\t\t\t+========================================+");
+            puts("\n\t\t\t\t\t+=======================================+");
             printf("\t\t\t\t\t|%s\t%s\t\t%s\t%s\t\n","ID","ITEM", "QTY", "PRICE\t|");
-            puts("\t\t\t\t\t+========================================+");
-        	printf("\t\t\t\t\t|SM%d\t%s\t\t%d\t %d\t|\n",rst[i].id,rst[i].item,rst[i].qty,rst[i].price);
-        	puts("\t\t\t\t\t+----------------------------------------+");
+            puts("\t\t\t\t\t+=======================================+");
+        	printf("\t\t\t\t\t|SM%d\t%s\t\t%d\t %d\t|\n",rst[i].id,strupr(rst[i].item),rst[i].qty,rst[i].price);
+        	puts("\t\t\t\t\t+---------------------------------------+");
             printf("\nPress <1> :Change Name");
         	printf("\nPress <2> :Change Quantity");
         	printf("\nPress <3> :Change Price");
@@ -181,18 +183,18 @@ void update()
         	{
             	case 1:
        				fflush(stdin);
-					printf("\n****** Current Name:%s ******\n",rst[i].item);
+					printf("\n****** Current Name:%s ******\n",strupr(rst[i].item)));
 					printf("\nEnter the New Name: ");
            			gets(rst[i].item);
-           			printf("\n****** New Name:%s ******\n",rst[i].item);
-           			printf("\n\t\t\t********** Item %s Updated successfully!! **********\n",rst[i].item);
+           			printf("\n****** New Name:%s ******\n",strupr(rst[i].item));
+           			printf("\n\t\t\t********** Item %s Updated successfully!! **********\n",strupr(rst[i].item)));
             		break;
             	case 2:
             	    printf("****** Current Quantity :%d ******\n",rst[i].qty);
                 	printf("\nEnter the new quantity:=");
                 	scanf("%d",&rst[i].qty);
                 	printf("\n****** New Quantity :%d ******\n",rst[i].qty);
-                	printf("\n\t\t\t********** Item %s Updated successfully!! **********\n",rst[i].item);
+                	printf("\n\t\t\t********** Item %s Updated successfully!! **********\n",strupr(rst[i].item));
                 	break;
 
 				case 3:
@@ -200,17 +202,17 @@ void update()
                 	printf("\nEnter the new price:=Rs.");
                 	scanf("%d",&rst[i].price);
                 	printf("\n****** New Price:Rs.%d ******\n",rst[i].price);
-                	printf("\n\t\t\t********** Item %s Updated successfully!! **********\n",rst[i].item);
+                	printf("\n\t\t\t********** Item %s Updated successfully!! **********\n",strupr(rst[i].item));
                 	break;
 
             	case 4:break;
             	default:printf("\n\tOption not Available\n");
-            	printf("\n\t\t\t********** Item %s Not Updated,Please Try Again **********\n",rst[i].item);
+            	printf("\n\t\t\t********** Item %s Not Updated,Please Try Again **********\n",strupr(rst[i].item));
 
         	}
-
         	break;
         }
+
 	}
 
 
@@ -218,13 +220,13 @@ void update()
     fopen("stu.txt","w");
     fwrite(rst,sizeof(stock),len,fp);
     fclose(fp);
-
 }
 void billing()
 {
 	FILE *fr=fopen("stu.txt","r");
 	int len,i,q,n,c;
     char ch;
+    int no=1;
     int amt=0;
     int total=0;
     int j=0;
@@ -254,7 +256,7 @@ void billing()
         		break;
   			}
 		}
-        printf("\nQuantity of %s out of %d  : ",st.item,st.qty);
+        printf("\nQuantity of %s out of %d  : ",strupr(st.item),st.qty);
         scanf("%d",&q);
 		//printf("%d",q);
         if(st.qty>=q)
@@ -266,11 +268,11 @@ void billing()
             rst[c].qty=rst[c].qty-q;
             b[j].pricee=st.price;
 
-           printf("\n********** You Brought %d %s/s of Rs.%d each **********\n",b[j].qtyy,b[j].itemm,b[j].pricee);
+           printf("\n********** You Brought %d %s/s of Rs.%d each **********\n",b[j].qtyy,strupr(b[j].itemm),b[j].pricee);
         }
         else if(st.qty==0 && st.qty<q)
         {
-           printf("\n********** Stock of %s empty,Please Stock Up **********\n",b[j].itemm);
+           printf("\n********** Stock of %s empty,Please Stock Up **********\n",strupr(b[j].itemm);
         }
         else
         {
@@ -291,18 +293,18 @@ void billing()
 	fopen("stu.txt","w");
 	fwrite(rst,sizeof(stock),len,fr);
  	fclose(fr);
-    puts("\t\t\t\t+---------------------------------------------------------------------+");
+    puts("\t\t\t\t+-------------------------------------------------------------------------+");
 	printf("\t\t\t\t\t\t\tUC SUPER MARKET\n");
-    puts("\t\t\t\t+=====================================================================+");
-    printf("\t\t\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\n", "No.","Item", "Qty", "Price", "Amount");
-    puts("\t\t\t\t+---------------------------------------------------------------------+");
+    puts("\t\t\t\t+=========================================================================+");
+    printf("\t\t\t\t%s\t%s\t\t%s\t\t%s\t\t%s\t\t%s\n","No.","ID","Item", "Qty", "Price", "Amount");
+    puts("\t\t\t\t+-------------------------------------------------------------------------+");
     for(i=0; i<j; i++)
     {
         amt=(b[i].qtyy*b[i].pricee);
         total=total+amt;
-        printf("\t\t\t\tSM%d\t\t%s\t\t%d\t\t%d\t\t%d\n",b[i].idd,b[i].itemm, b[i].qtyy,b[i].pricee, amt);
+        printf("\t\t\t\t%d\t\t%s\t\t%d\t\t%d\t\t%d\n",no++,strupr(b[i].itemm), b[i].qtyy,b[i].pricee, amt);
     }
-    puts("\t\t\t\t+----------------------------------------------------------------------+");
+    puts("\t\t\t\t+--------------------------------------------------------------------------+");
 
 
     printf("\t\t\t\tTotal Amount :\t\t\t\t\t\tRs.%d/-\n",total);
@@ -336,7 +338,7 @@ void rem()
 	FILE *fp=fopen("stu.txt","r");
     fread(rst,sizeof(stock),len,fp);
     fclose(fp);
-    printf("\n Product ID of the stock you want to Delete:SM");
+    printf("\n Product ID of the stock you want to Delete: ");
     scanf("%d",&n);
 
             for(i=0;i<len;i++)
@@ -346,21 +348,19 @@ void rem()
                      {
                       break;
                      }
-
                }
 
-           printf("\n\t\t\t %s is Deleted \n",rst[i].item);
+           printf("\n\t\t\t %s Deleted \n",rst[i].item);
 
            for(j=pos-1;j<len-1;j++)
               {
                 rst[j] = rst[j + 1];
               }
-                //array ude len kurakum
-                 len--;
-    fopen("stu.txt","w");
-    fwrite(rst,sizeof(stock),len,fp);
-    fclose(fp);
-    printf("\n\t\t\t\t\t\tNew Table \n");
-    read();
+              len--;
+        fopen("stu.txt","w");
+        fwrite(rst,sizeof(stock),len,fp);
+        fclose(fp);
+//    printf("\n\t\t\t\t\t\tNew Table \n");
+//    read();
 
 }
